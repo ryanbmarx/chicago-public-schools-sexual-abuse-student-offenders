@@ -1,3 +1,5 @@
+const sass = require('node-sass');
+
 module.exports = function(grunt) {
   var config = {};
 
@@ -71,6 +73,7 @@ module.exports = function(grunt) {
     options: {
       outputStyle: 'compressed',
       sourceMap: true,
+      implementation: sass,
       includePaths: [ 'sass/', 'node_modules/trib-styles/sass/', '_blueprint/base-sass/' ]
     },
     app: {
