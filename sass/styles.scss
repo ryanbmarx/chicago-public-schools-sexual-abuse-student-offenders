@@ -1,0 +1,213 @@
+// Enables Tribune colors, but is required for everything.
+@import 'base-variables';
+// @import 'base-config'; // If you are using the off-platform blueprint, uncomment this.
+
+$desktop-min-width: 1000px;
+$tablet-min-width: 800px;
+$phablet-min-width: 550px;
+
+$special-needs-color: $trib-orange;
+$special-needs-color-muted: lighten($special-needs-color, 30%);
+
+// Required for everything, too, but can be broken down into smaller explicit imports if desired. 
+@import 'base-mixins';
+
+// ---- MAKE OR IMPORT MORE MIXINS HERE ---------------------------------------------
+
+
+
+// ---- TRIB CLASSES, UNCOMMENT THE ONES YOU WANT -----------------------------------
+// @import 'ngux-visibility-toggles';
+// @import 'trib-bulletbox';
+// @import 'trib-buttons';
+// @import 'trib-colors';
+// @import 'trib-images-charts';
+// @import 'trib-legends';
+// @import 'trib-skeleton';
+// @import 'trib-tables';
+// @import 'trib-timeline-basic';
+// @import 'trib-typography';
+// @import 'trib-utilities';
+
+// ---- OFF-PLATFORM COMPONENT STYLES, UNCOMMENT THE ONES YOU WANT --------------------
+// ---- (You'll need most or all of them) ---------------------------------------------
+// @import 'base-scaffolding';
+// @import 'base-footer';
+// @import 'base-navbar';
+// @import 'base-social';
+// @import 'base-byline';
+// @import 'base-adverts';
+// @import 'base-comments';
+// @import 'base-call-to-action';
+// @import 'base-hamburger';
+
+
+// ---- IMPORT PROJECT STYLES FROM PARTIAL FILES HERE ---------------------------------------------
+
+
+
+// ---- WRITE MORE PROJECT STYLES HERE ---------------------------------------------
+
+.sr-only{
+	// Use this to hide elements from everything except screen readers.
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+body{
+	padding: 0;
+	margin:0;
+}
+
+.reports{
+	list-style:none;
+	margin: 0;
+	padding: 0;
+
+	@supports (display:grid) and (grid-row: 1 / -1){
+		display:grid;
+		grid-gap: $grid-gap;		
+	}
+}
+
+.report{
+	@include sans-serif();
+
+	background: $trib-gray4;
+	border-radius: 5px;
+	padding: $grid-gap / 2;
+
+	box-shadow: 2px 2px 3px rgba(black, .35);
+
+	display:flex;
+	flex-flow:column;
+
+	&--special-needs{
+		background: $special-needs-color-muted;
+	}
+
+	&__school{
+		font-size: 1.5em;
+		line-height: 1.3em;
+		margin: 0;
+	}
+
+	& > * + *{
+		// This will select all the elements inside the .report, starting with the second one. 
+		// Puts a uniform spacing inside no matter what we've got going on in there.
+		margin: 1rem 0 0 0;
+	}
+
+	& > * + *:nth-last-child(2){
+		// This follows the above rule, but also puts a botttom margin on the second-to-last item.
+		margin: 1rem 0;
+	}
+
+	&__date{
+		margin-top: auto; // So it always sits on the bottom
+		dd, dt{
+			float: left;
+		}
+		dt{
+			font-weight: bold;
+			clear:left;
+			&:after{
+				content: ":";
+				margin-right: 5px;
+			}
+		}
+
+		dd{
+			margin-left: 0;
+		}
+	}
+}
+
+
+// .credits, .trb_mainContent .credits {
+// 	// All notes, sources and credits should go inside a container class='credits'
+// 	// and should use the agate type style. No italics
+// 	p{ @include agate(); }
+// }
+
+
+
+/*
+// ##############################################
+// If you are using the off platform rig, then uncomment this code. otherwise you can delete it.
+// ##############################################
+
+p{
+	font: 15px/1.6em $serif-fonts;
+	margin: 0 0 #{$grid-gap / 2} 0;
+}
+
+a{
+	color: $color-links;
+	text-decoration: none;
+
+	&:hover{
+		text-decoration: underline;
+	}
+}
+
+
+// This is the paywall/meter/registration sticky note at the bottom of the page
+.met-flyout .met-promo-content{
+	p {
+		line-height: 1.3em;
+		font-family: "Arial", sans-serif;
+		span{
+			font: 14px/1.3em "Arial", sans-serif;
+			color:white;
+			width:100%;
+			margin: 0;
+
+			&:first-of-type{
+				font-weight: 700;
+			}
+
+			a {
+				font: 14px/1.3em "Arial", sans-serif !important;
+				
+			}
+		}
+	}
+}
+*/
+@media all and (min-width: $phablet-min-width){
+	// By default, this is 450px+
+	.reports{
+		@supports (display:grid) and (grid-row: 1 / -1){
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	p{
+		font-size: 18px;
+		line-height: 1.5em;
+	}
+}
+
+@media all and (min-width: $tablet-min-width){
+	.reports{
+		@supports (display:grid) and (grid-row: 1 / -1){
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+}
+
+@media all and (min-width: $desktop-min-width){
+	// ONLY CHANGES FOR DESKTOPS
+	// By default, this is 850px+
+	.reports{
+		@supports (display:grid) and (grid-row: 1 / -1){
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}

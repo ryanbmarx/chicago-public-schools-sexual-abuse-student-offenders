@@ -1,38 +1,34 @@
-{% extends "_base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="http://{{ ROOT_URL }}/css/styles.css">
+</head>
+<body>
+	<ul class='reports'>
+		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
+			{% set special_needs = False %}
+			{% if report.SPECIAL_NEEDS_OFFENDER == 1 or report.SPECIAL_NEEDS_victim == 1 %}
+				{% set special_needs = True %}
+			{% endif %}
 
-{% block library_scripts %}
-	{# <script src="//{{ ROOT_URL }}/js/vendor.min.js" type="text/javascript"></script> #}
-{% endblock %}
+			{% if report.INCIDENT_DATE %}
+				{% set date = report.INCIDENT_DATE|xldate_to_datetime|format_date_with_strftime("%b %-d, %Y", True) %}
+			{% else %}
+				{% set date = False %}
+			{% endif %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-{% endblock stylesheets %}
-
-
-{% block content %}
-	{# YOUR STUFF GOES HERE #}
-	<div class="advert" data-ad-type="leaderboard"></div>
-	<section id='intro' class='intro container'>
-		<div class='river'>
-			<div class="advert" data-ad-type="shrinky-cube"></div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque dolores ipsum quo? Accusamus, excepturi impedit a magni exercitationem molestiae repellendus cumque, sed ullam ex dicta dolore minus esse fugit, et.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque dolores ipsum quo? Accusamus, excepturi impedit a magni exercitationem molestiae repellendus cumque, sed ullam ex dicta dolore minus esse fugit, et.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque dolores ipsum quo? Accusamus, excepturi impedit a magni exercitationem molestiae repellendus cumque, sed ullam ex dicta dolore minus esse fugit, et.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque dolores ipsum quo? Accusamus, excepturi impedit a magni exercitationem molestiae repellendus cumque, sed ullam ex dicta dolore minus esse fugit, et.</p>
-		</div>
-	</section>
-	{{ refer() }}
-	<section id='content' class='content container'></section>
-	<section id='credits' class='credits container'>
-		<div class='river'>
-			{% if note %}{{ note|markdown }}{% endif %}
-			{% if sources %}{{ sources|markdown }}{% endif %}
-			{% if credit %}{{ credit|markdown }}{% endif %}
-		</div>
-	</section>
-{% endblock content %}
-
-
-{% block scripts %}
-	{# <script src="//{{ ROOT_URL }}/js/app.min.js" type="text/javascript"></script> #}
-{% endblock %}
+			<li class='report {% if special_needs %}report--special-needs{% endif %}'>
+				<h1 class='report__school'>{{ report.SCHOOL_NAME|process_text }}</h1>
+				{% if report.DESCRIPTION %}{{ report.DESCRIPTION|markdown }}{% endif %}
+				{% if date %}
+					<dl class='report__date'>
+						<dt>Incident date</dt>
+						<dd>{{ date }}</dd>
+					</dl>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
