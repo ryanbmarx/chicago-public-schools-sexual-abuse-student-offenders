@@ -1,6 +1,6 @@
 // Enables Tribune colors, but is required for everything.
 @import 'base-variables';
-// @import 'base-config'; // If you are using the off-platform blueprint, uncomment this.
+@import 'base-config'; // If you are using the off-platform blueprint, uncomment this.
 
 $desktop-min-width: 1000px;
 $tablet-min-width: 800px;
@@ -131,9 +131,19 @@ body{
 	margin: 0;
 	padding: 0;
 
-	@supports (display:grid) and (grid-row: 1 / -1){
+	@supports ((display:grid) and (grid-row: 1/-1)){
 		display:grid;
 		grid-gap: $grid-gap;		
+	}
+
+	@supports not ((display:grid) and (grid-row: 1/-1)){
+		display:flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		.report{
+			margin-bottom: $grid-gap;
+		}
 	}
 }
 
@@ -143,7 +153,7 @@ body{
 	background: $trib-gray4;
 	border-radius: 5px;
 	padding: $grid-gap / 2;
-
+	box-sizing: border-box;
 	box-shadow: 2px 2px 3px rgba(black, .35);
 
 	display:none;
@@ -203,7 +213,7 @@ body{
 
 
 
-/*
+
 // ##############################################
 // If you are using the off platform rig, then uncomment this code. otherwise you can delete it.
 // ##############################################
@@ -224,33 +234,39 @@ a{
 
 
 // This is the paywall/meter/registration sticky note at the bottom of the page
-.met-flyout .met-promo-content{
-	p {
-		line-height: 1.3em;
-		font-family: "Arial", sans-serif;
-		span{
-			font: 14px/1.3em "Arial", sans-serif;
-			color:white;
-			width:100%;
-			margin: 0;
+// .met-flyout .met-promo-content{
+// 	p {
+// 		line-height: 1.3em;
+// 		font-family: "Arial", sans-serif;
+// 		span{
+// 			font: 14px/1.3em "Arial", sans-serif;
+// 			color:white;
+// 			width:100%;
+// 			margin: 0;
 
-			&:first-of-type{
-				font-weight: 700;
-			}
+// 			&:first-of-type{
+// 				font-weight: 700;
+// 			}
 
-			a {
-				font: 14px/1.3em "Arial", sans-serif !important;
+// 			a {
+// 				font: 14px/1.3em "Arial", sans-serif !important;
 				
-			}
-		}
-	}
-}
-*/
+// 			}
+// 		}
+// 	}
+// }
+
 @media all and (min-width: $phablet-min-width){
 	// By default, this is 450px+
 	.reports{
-		@supports (display:grid) and (grid-row: 1 / -1){
+		@supports ((display:grid) and (grid-row: 1 / -1)){
 			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@supports not ((display:grid) and (grid-row: 1 / -1)){
+			.report{
+				width: calc(50% - #{$grid-gap / 2});
+			}
 		}
 	}
 	p{
@@ -261,8 +277,14 @@ a{
 
 @media all and (min-width: $tablet-min-width){
 	.reports{
-		@supports (display:grid) and (grid-row: 1 / -1){
+		@supports ((display:grid) and (grid-row: 1 / -1)){
 			grid-template-columns: repeat(3, 1fr);
+		}
+
+		@supports not ((display:grid) and (grid-row: 1 / -1)){
+			.report{
+				width: calc(33% - #{$grid-gap / 2});
+			}
 		}
 	}
 }
@@ -271,8 +293,14 @@ a{
 	// ONLY CHANGES FOR DESKTOPS
 	// By default, this is 850px+
 	.reports{
-		@supports (display:grid) and (grid-row: 1 / -1){
+		@supports ((display:grid) and (grid-row: 1 / -1)){
 			grid-template-columns: repeat(4, 1fr);
+		}
+
+		@supports not ((display:grid) and (grid-row: 1 / -1)){
+			.report{
+				width: calc(25% - #{$grid-gap / 2});
+			}
 		}
 	}
 }
