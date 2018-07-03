@@ -5,6 +5,12 @@
 	<link rel="stylesheet" type="text/css" href="http://{{ ROOT_URL }}/css/styles.css">
 </head>
 <body>
+	<nav class='toggles'>
+		<button id='special-needs-toggle' class='sn-toggle' aria-role='button'>
+			<span class='sn-toggle__label sn-toggle__label--show-all'>Only show special needs</span>
+			<span class='sn-toggle__label sn-toggle__label--show-only'>Show all incidents</span>
+		</button>
+	</nav>
 	<ul class='reports'>
 		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
 			{% set special_needs = False %}
@@ -18,7 +24,7 @@
 				{% set date = False %}
 			{% endif %}
 
-			<li class='report {% if special_needs %}report--special-needs{% endif %}'>
+			<li class='report report--visible {% if special_needs %}report--special-needs{% endif %}'>
 				<h1 class='report__school'>{{ report.SCHOOL_NAME|process_text }}</h1>
 				{% if report.DESCRIPTION %}{{ report.DESCRIPTION|markdown }}{% endif %}
 				{% if date %}
@@ -30,5 +36,6 @@
 			</li>
 		{% endfor %}
 	</ul>
+	<script type="text/javascript" src='http://{{ ROOT_URL }}/js/app.min.js'></script>
 </body>
 </html>
