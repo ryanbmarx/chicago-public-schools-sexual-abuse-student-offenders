@@ -12,6 +12,34 @@
 			<span class='sn-toggle__label sn-toggle__label--show-only'>Show all incidents</span>
 		</button>
 	</nav>
+<h1>A flickable version version</h1>
+<ul class='reports reports--gallery'>
+		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
+			{% set special_needs = False %}
+			{% if report.SPECIAL_NEEDS_OFFENDER == 1 or report.SPECIAL_NEEDS_victim == 1 %}
+				{% set special_needs = True %}
+			{% endif %}
+
+			{% if report.INCIDENT_DATE %}
+				{% set date = report.INCIDENT_DATE|xldate_to_datetime|format_date_with_strftime("%b %-d, %Y", True) %}
+			{% else %}
+				{% set date = False %}
+			{% endif %}
+
+			<li class='carousel-cell report report--visible {% if special_needs %}report--special-needs{% endif %}'>
+				<h1 class='report__school'>{{ report.SCHOOL_NAME|process_text }}</h1>
+				{% if report.DESCRIPTION %}{{ report.DESCRIPTION|markdown }}{% endif %}
+				{% if date %}
+					<dl class='report__date'>
+						<dt>Incident date</dt>
+						<dd>{{ date }}</dd>
+					</dl>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+	<hr>
+	<h1>A static version</h1>
 	<ul class='reports'>
 		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
 			{% set special_needs = False %}

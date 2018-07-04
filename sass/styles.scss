@@ -53,6 +53,7 @@ $special-needs-color-muted: lighten($special-needs-color, 30%);
 // @import 'base-comments';
 // @import 'base-call-to-action';
 // @import 'base-hamburger';
+@import '../node_modules/flickity/dist/flickity.min';
 
 
 // ---- IMPORT PROJECT STYLES FROM PARTIAL FILES HERE ---------------------------------------------
@@ -145,6 +146,18 @@ body{
 			margin-bottom: $grid-gap;
 		}
 	}
+}
+
+.reports.reports--gallery{
+	display:block;
+	margin: $grid-gap 0;
+	.report{
+		width: 100%;
+		max-width: 320px;
+	    min-height: 99%; // 99% so the box shadow still appears
+	    margin-right: $grid-gap / 2;
+	}
+
 }
 
 .report{
