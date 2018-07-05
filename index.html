@@ -10,13 +10,16 @@
 	<link rel="stylesheet" type="text/css" href="http://{{ ROOT_URL }}/css/styles.css">
 </head>
 <body>
-	{{ intro|markdown }}
-	<nav class='toggles'>
-		<button id='special-needs-toggle' class='sn-toggle' aria-role='button'>
-			<span class='sn-toggle__label sn-toggle__label--show-all'>Only show special needs</span>
-			<span class='sn-toggle__label sn-toggle__label--show-only'>Show all incidents</span>
-		</button>
-	</nav>
+	<header class='header river'>
+		<h1 class='headline'>Header here</h1>
+		{{ intro|markdown }}
+		<nav class='toggles'>
+			<button id='special-needs-toggle' class='sn-toggle' aria-role='button'>
+				<span class='sn-toggle__label sn-toggle__label--show-all'>Only show special needs</span>
+				<span class='sn-toggle__label sn-toggle__label--show-only'>Show all incidents</span>
+			</button>
+		</nav>
+	</header>
 <ul class='reports reports--gallery'>
 		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
 			{% set special_needs = False %}

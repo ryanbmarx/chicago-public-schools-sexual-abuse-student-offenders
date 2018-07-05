@@ -1,3 +1,5 @@
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400,700"');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700"');
 // Enables Tribune colors, but is required for everything.
 @import 'base-variables';
 @import 'base-config'; // If you are using the off-platform blueprint, uncomment this.
@@ -8,6 +10,8 @@ $phablet-min-width: 550px;
 
 $special-needs-color: $trib-orange;
 $special-needs-color-muted: lighten($special-needs-color, 30%);
+
+$fonts-sans-serif: "Open Sans", "Arial", sans-serif;
 
 // Required for everything, too, but can be broken down into smaller explicit imports if desired. 
 @import 'base-mixins';
@@ -61,6 +65,16 @@ $special-needs-color-muted: lighten($special-needs-color, 30%);
 
 
 // ---- WRITE MORE PROJECT STYLES HERE ---------------------------------------------
+
+.river{
+	max-width: 600px;
+	margin: 0 auto $grid-gap auto;
+}
+
+.headline{
+	@include label5();
+	margin: 0 0 #{$grid-gap / 2} 0;
+}
 
 .sr-only{
 	// Use this to hide elements from everything except screen readers.
