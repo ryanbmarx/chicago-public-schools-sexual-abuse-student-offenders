@@ -13,6 +13,8 @@ $special-needs-color-muted: lighten($special-needs-color, 30%);
 
 $fonts-sans-serif: "Open Sans", "Arial", sans-serif;
 
+$white: #F1F3F4;
+
 // Required for everything, too, but can be broken down into smaller explicit imports if desired. 
 @import 'base-mixins';
 
@@ -142,9 +144,11 @@ body{
 }
 
 .reports{
-	list-style:none;
+	// list-style:none;
 	margin: 0;
 	padding: 0;
+	position: relative;
+	overflow: hidden;
 
 	@supports ((display:grid) and (grid-row: 1/-1)){
 		display:grid;
@@ -160,6 +164,32 @@ body{
 			margin-bottom: $grid-gap;
 		}
 	}
+
+	// &:before, &:after{
+	// 	content: "";
+	// 	display:block;
+	// 	height: 100%;
+	// 	width: 70px;
+	// 	background: $white;
+
+	// 	position: absolute;
+	// 	top: 0;
+		
+	// 	z-index: 20;
+
+	// 	filter: blur(10px);
+		
+	// }
+
+	// &:before{
+	// 	left: 0;
+	// 	transform: translate(-50%,0);
+	// }
+
+	// &:after{
+	// 	right: 0;
+	// 	transform: translate(50%,0);
+	// }
 }
 
 .reports.reports--gallery{
@@ -313,6 +343,33 @@ a{
 				width: calc(33% - #{$grid-gap / 2});
 			}
 		}
+
+		&:before, &:after{
+			content: "";
+			display:block;
+			height: 100%;
+			width: 70px;
+			background: $white;
+
+			position: absolute;
+			top: 0;
+			
+			z-index: 20;
+
+			filter: blur(10px);
+			
+		}
+
+		&:before{
+			left: 0;
+			transform: translate(-50%,0);
+		}
+
+		&:after{
+			right: 0;
+			transform: translate(50%,0);
+		}
+
 	}
 }
 
