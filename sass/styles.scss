@@ -164,32 +164,6 @@ body{
 			margin-bottom: $grid-gap;
 		}
 	}
-
-	// &:before, &:after{
-	// 	content: "";
-	// 	display:block;
-	// 	height: 100%;
-	// 	width: 70px;
-	// 	background: $white;
-
-	// 	position: absolute;
-	// 	top: 0;
-		
-	// 	z-index: 20;
-
-	// 	filter: blur(10px);
-		
-	// }
-
-	// &:before{
-	// 	left: 0;
-	// 	transform: translate(-50%,0);
-	// }
-
-	// &:after{
-	// 	right: 0;
-	// 	transform: translate(50%,0);
-	// }
 }
 
 .reports.reports--gallery{
@@ -368,6 +342,10 @@ a{
 		&:after{
 			right: 0;
 			transform: translate(50%,0);
+		}
+
+		.flickity-prev-next-button{
+			z-index: 21; // puts buttons on top of blurs
 		}
 
 	}
