@@ -20,7 +20,7 @@
 			</button>
 		</nav>
 	</header>
-<ul class='reports reports--gallery'>
+<div class='reports reports--gallery'>
 		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
 			{% set special_needs = False %}
 			{% if report.SPECIAL_NEEDS_OFFENDER == 1 or report.SPECIAL_NEEDS_victim == 1 %}
@@ -33,7 +33,7 @@
 				{% set date = False %}
 			{% endif %}
 
-			<li class='carousel-cell report report--visible {% if special_needs %}report--special-needs{% endif %}'>
+			<div class='carousel-cell report report--visible {% if special_needs %}report--special-needs{% endif %}'>
 				<h1 class='report__school'>{{ report.SCHOOL_NAME|process_text }}</h1>
 				{% if report.DESCRIPTION %}{{ report.DESCRIPTION|markdown }}{% endif %}
 				{% if date %}
@@ -42,9 +42,9 @@
 						<dd>{{ date }}</dd>
 					</dl>
 				{% endif %}
-			</li>
+			</div>
 		{% endfor %}
-	</ul>
+	</div>
 	<script type="text/javascript" src='http://{{ ROOT_URL }}/js/app.min.js'></script>
 </body>
 </html>
