@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="http://{{ ROOT_URL }}/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="//{{ ROOT_URL }}/css/styles.css">
 </head>
 <body>
 	<header class='header river'>
@@ -21,13 +21,15 @@
 		</nav>
 	</header>
 <div class='reports reports--gallery'>
-		{% for report in reports|sort(attribute="SCHOOL_NAME") %}
+		{% for report in reports[1:]|sort(attribute="SCHOOL_NAME") %}
 			{% set special_needs = False %}
 			{% if report.SPECIAL_NEEDS_OFFENDER == 1 or report.SPECIAL_NEEDS_victim == 1 %}
 				{% set special_needs = True %}
 			{% endif %}
 
-			{% if report.INCIDENT_DATE %}
+			{% if report.INCIDENT_DATE_DISPLAY %}
+				{% set date = report.INCIDENT_DATE_DISPLAY %}
+			{% elif report.INCIDENT_DATE %}
 				{% set date = report.INCIDENT_DATE|xldate_to_datetime|format_date_with_strftime("%b %-d, %Y", True) %}
 			{% else %}
 				{% set date = False %}
@@ -45,6 +47,6 @@
 			</div>
 		{% endfor %}
 	</div>
-	<script type="text/javascript" src='http://{{ ROOT_URL }}/js/app.min.js'></script>
+	<script type="text/javascript" src='//{{ ROOT_URL }}/js/app.min.js'></script>
 </body>
 </html>
