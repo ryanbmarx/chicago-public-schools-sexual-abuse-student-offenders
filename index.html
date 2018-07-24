@@ -11,12 +11,14 @@
 </head>
 <body>
 	<header class='header river'>
-		<h1 class='headline'>Header here</h1>
+		<h1 class='headline'>{{ header|process_text }}</h1>
 		{{ intro|markdown }}
 		<nav class='toggles'>
-			<button id='special-needs-toggle' class='sn-toggle' aria-role='button'>
-				<span class='sn-toggle__label sn-toggle__label--show-all'>Only show special needs</span>
-				<span class='sn-toggle__label sn-toggle__label--show-only'>Show all incidents</span>
+			<button id='special-needs-toggle' class='sn-toggle sn-toggle--special' aria-role='button'>
+				{{ show_special_needs }}
+			</button>
+			<button id='all-incidents-toggle' class='sn-toggle sn-toggle--active sn-toggle--all' aria-role='button'>
+				{{ show_all_incidents }}
 			</button>
 		</nav>
 	</header>
@@ -42,6 +44,10 @@
 					<dl class='report__date'>
 						<dt>Incident date</dt>
 						<dd>{{ date }}</dd>
+						{% if report.SOURCE %}
+						<dt>Source(s)</dt>
+						<dd>{{ report.SOURCE }}</dd>
+						{% endif %}
 					</dl>
 				{% endif %}
 			</div>

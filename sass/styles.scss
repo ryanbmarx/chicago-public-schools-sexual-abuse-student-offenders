@@ -11,6 +11,8 @@ $phablet-min-width: 550px;
 $special-needs-color: $trib-orange;
 $special-needs-color-muted: lighten($special-needs-color, 30%);
 
+$button-muted-color: $trib-gray2;
+
 $fonts-sans-serif: "Open Sans", "Arial", sans-serif;
 
 $white: #F1F3F4;
@@ -24,14 +26,18 @@ $white: #F1F3F4;
 	@include sans-serif();
 	display:block;
 	padding: $grid-gap / 2;
-	border:none;
 	background: rgba($trib-gray4, .8);
 	cursor: pointer;
-	transition: background 150ms ease;
+	text-align:center;
+	transition: opacity 150ms ease;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	opacity: .8;
+	color: $button-muted-color;
 
-	&:hover{
-		background: $trib-gray4;
-		transition: background 150ms ease;
+	&:hover, &:focus{
+		opacity: 1;
+		transition: opacity 150ms ease;
 	}
 }
 
@@ -95,53 +101,45 @@ body{
 	margin:0;
 }
 
+.toggles{
+	display:flex;
+	flex-wrap: wrap;
+	margin: #{0-$grid-gap} #{0-$grid-gap} 0 0;
+}
+
 .sn-toggle{
 	@extend %flatButton;
 
+	flex: 1 1 200px;
+	margin: #{$grid-gap} #{$grid-gap} 0 0;
+
 	display:flex;
 	align-items: center;
+	justify-content: center;
 
 
-	&:before{
-		content: "";
-		display: block;
-		height: 1em;
-		width: 1em;
-		background: $special-needs-color;
-		margin-right: .25em;
-	}
-
-	&__label--show-only{
-		display:none;
+	&--special{
+		background: $special-needs-color-muted;
 	}
 
 	&--active{
-		background: rgba($special-needs-color, .8);
-		transition: background 150ms ease;
-		color: #{set-text-color($special-needs-color, true)};
+		border-color: $button-muted-color;
+		color: black;
+		position: relative;
 
-		&:hover{
-			background: $special-needs-color;	
-		}
+		&:after{
+			content: "\25BC";
+			font-size: 18px;
+			position:absolute;
+			top: 100%;
+			left: 50%;
+			transform: translate(-50%, -5px);
+			color: $button-muted-color;
 
-		&:before{
-			background: $special-needs-color-muted;
-		}
-
-		.sn-toggle__label--show-only{
-			display:inline;
-		}
-
-		.sn-toggle__label--show-all{
-			display:none;
 		}
 	}
 }
 
-
-.toggles{
-	margin: $grid-gap 0;
-}
 
 .reports{
 	// list-style:none;

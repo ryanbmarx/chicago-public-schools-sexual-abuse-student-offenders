@@ -23,22 +23,31 @@ window.addEventListener('DOMContentLoaded', function(e){
 	const reports = document.querySelectorAll('.report');
 	const reportsGallery = new Flickity(document.querySelector('.reports--gallery'), flickityOptions);
 
-	document.querySelector('#special-needs-toggle').addEventListener('click', function(e){
-		clickTrack("CPS Abuse - offender cards special needs toggled")
-		if (this.classList.contains('sn-toggle--active')) {
-			this.classList.remove('sn-toggle--active');
-			for (let i=0; i < reports.length; i++){
-				reports[i].classList.add('report--visible');
-			}
-		}
-		else {
+	[].slice.call(document.querySelectorAll('.sn-toggle')).forEach(button => {
+		button.addEventListener('click', function(e){
+			// register our click
+			clickTrack("CPS Abuse - offender cards special needs toggled")
+			
+			// Adjust active state
+			document.querySelector('.sn-toggle--active').classList.remove('sn-toggle--active');
 			this.classList.add('sn-toggle--active');
-			for (let i=0; i < reports.length; i++){
-				let report = reports[i];
-				if (report.classList.contains('report--special-needs')) report.classList.add('report--visible')
-				else report.classList.remove('report--visible');
+			console.log(this.classList.contains('sn-toggle--special'));
+
+			if (this.classList.contains('sn-toggle--special')) {
+				console.log("showing special");
+				for (let i=0; i < reports.length; i++){
+					if (reports[i].classList.contains('report--special-needs')) reports[i].classList.add('report--visible')
+					else reports[i].classList.remove('report--visible');
+				}
 			}
-		}
-		reportsGallery.resize();
+			else {	
+				console.log("showing all");
+				for (let i=0; i < reports.length; i++){
+					reports[i].classList.add('report--visible');
+				}
+			}
+			// Resize the gallery so the visible slides move to new, organized horizontal positions.
+			reportsGallery.resize();
+		});
 	});
 });
